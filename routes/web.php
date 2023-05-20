@@ -19,4 +19,6 @@ Route::get('/', [TodolistController::class, 'index'])->name('index');
 
 Route::post('/', [TodolistController::class, 'store'])->name('store');
 
+Route::post('/{todolist:id}', [TodolistController::class, 'mark'])->name('mark');
+
 Route::delete('/{todolist:id}', [TodolistController::class, 'destroy'])->name('destroy');

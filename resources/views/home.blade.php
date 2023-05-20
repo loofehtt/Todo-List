@@ -28,7 +28,8 @@
                 </form>
                 {{-- if tasks count --}}
                 @if (count($todolists))
-                    <ul class="list-group list-group-flush mt-3">
+                    {{-- delete --}}
+                    {{-- <ul class="list-group list-group-flush mt-3">
                         @foreach ($todolists as $todolist)
                             <li class="list-group-item">
                                 <form action="{{ route('destroy', $todolist->id) }}" method="post">
@@ -40,16 +41,29 @@
                                 </form>
                             </li>
                         @endforeach
+                    </ul> --}}
+
+                    {{-- mark complete --}}
+                    <ul class="list-group list-group-flush mt-3">
+                        @foreach ($todolists as $todolist)
+                            <li class="list-group-item">
+                                <form action="{{ route('mark', $todolist->id) }}" method="post">
+                                    {{ $todolist->content }}
+                                    @csrf
+                                    <button type="submit" class="btn btn-link btn-sm float-end"><i
+                                            class="fa-solid fa-check fa-2xl"></i></button>
+                                </form>
+                            </li>
+                        @endforeach
                     </ul>
                 @else
-                <p class="text-center mt-3">Nothing To Do!</p>
+                    <p class="text-center mt-3">Nothing To Do!</p>
                 @endif
             </div>
             @if (count($todolists))
                 <div class="card-footer">
                     You have {{ count($todolists) }} pending tasks
                 </div>
-
             @endif
         </div>
     </div>

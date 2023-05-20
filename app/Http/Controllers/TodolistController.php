@@ -44,13 +44,12 @@ class TodolistController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Change status to complete
      */
     public function mark(Todolist $todolist)
     {
-        $markTodo = Todolist::find($todolist);
-        $markTodo->is_complete = 1;
-        $markTodo->save();
+        $todolist->is_complete = 1;
+        $todolist->save();
 
         return back();
     }
