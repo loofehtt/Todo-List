@@ -36,16 +36,21 @@
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-link btn-sm float-end"><i
-                                            class="fas fa-trash"></i></button>
+                                            class="fas fa-trash fa-xl"></i></button>
                                 </form>
                             </li>
                         @endforeach
                     </ul>
                 @else
-                <p class="text-center mt-3">No Work To Do!</p>
-
+                <p class="text-center mt-3">Nothing To Do!</p>
                 @endif
             </div>
+            @if (count($todolists))
+                <div class="card-footer">
+                    You have {{ count($todolists) }} pending tasks
+                </div>
+
+            @endif
         </div>
     </div>
 </body>

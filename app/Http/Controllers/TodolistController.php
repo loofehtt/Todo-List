@@ -12,8 +12,8 @@ class TodolistController extends Controller
      */
     public function index()
     {
-        $todolists = Todolist::all();
-       return view('home', compact('todolists'));
+        // $todolists = Todolist::all();
+        return view('home', ['todolists' => Todolist::where('is_complete', 0)->get()]);
     }
 
     /**
@@ -21,11 +21,15 @@ class TodolistController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'content' => 'required'
-        ]);
+        // $data = $request->validate([
+        //     'content' => 'required'
+        // ]);
+        // Todolist::create($data);
+        $data = new Todolist;
+        $data->content = $request->content;
+        $data->is_complete = 0;
+        $data->save();
 
-        Todolist::create($data);
         return back();
     }
 
@@ -35,7 +39,19 @@ class TodolistController extends Controller
     public function destroy(Todolist $todolist)
     {
         $todolist->delete();
-        return back();
 
+        return back();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function mark(Todolist $todolist)
+    {
+        $markTodo = Todolist::find($todolist);
+        $markTodo->is_complete = 1;
+        $markTodo->save();
+
+        return back();
     }
 }
